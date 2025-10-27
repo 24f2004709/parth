@@ -3,7 +3,10 @@ name: Daily Commit 24f2004709@ds.study.iitm.ac.in
 on:
   schedule:
     - cron: '30 5 * * *'  # Runs daily at 05:30 UTC (11:00 AM IST)
-  workflow_dispatch:      # Allows manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   daily-commit:
@@ -21,5 +24,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "24f2004709@ds.study.iitm.ac.in"
           git add last_run.txt
-          git commit -m "Automated daily update $(date -u)"
+          git commit -m "Automated daily update $(date -u)" || echo "No changes"
           git push
